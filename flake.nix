@@ -3,8 +3,8 @@
 
   inputs.utils.url = "github:numtide/flake-utils";
 
-  outputs = { self, utils, nixpkgs, ... }: 
-    utils.lib.eachDefaultSystem (system: 
+  outputs = { self, utils, nixpkgs, ... }:
+    utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
         styx = pkgs.callPackage ./derivation.nix {};
@@ -14,6 +14,7 @@
         defaultPackage = styx;
 
         lib = import ./src/lib { inherit pkgs styx; };
+        themes = import ./themes/default-flake.nix pkgs;
       }
     );
 
